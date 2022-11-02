@@ -2,9 +2,14 @@
 
 Это мои ZX.js скрипты.
 
-## Установка (обязательно)
+## Установка
 ```console
-git clone https://github.com/SeryiBaran/zx-scripts.git ~/zx-scripts && echo 'export PATH="$PATH:$HOME/zx-scripts"' && cd ~/zx-scripts && npm install
+git clone https://github.com/SeryiBaran/zx-scripts.git ~/zx-scripts && cd ~/zx-scripts && npm install
+```
+
+Добавьте в .shellrc (.bashrc, .zshrc) следующюю строку:
+```bash
+export PATH="$PATH:$HOME/zx-scripts"
 ```
 
 ## Инструменты
