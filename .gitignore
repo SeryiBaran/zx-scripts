@@ -143,4 +143,4 @@ yarn.lock
 
 !dist
 
-gag.mjs
+./*.mjs
