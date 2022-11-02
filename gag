@@ -17,8 +17,6 @@ const statusesRegexp = /M|\?/m;
 
 const gitStatus = await $`git status --porcelain`;
 const gitDir = await $`git rev-parse --git-dir`;
-
-console.log(gitDir.stdout)
 const projectDir = path.resolve(gitDir.stdout.slice(0, -1), "..")
 
 const gitStatuses = gitStatus.stdout.split("\n").filter(str => !!str.trim());
