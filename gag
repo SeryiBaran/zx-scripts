@@ -1,0 +1,48 @@
+#!/usr/bin/env zx
+
+import prompts from 'prompts';
+
+function log(entry) {
+  switch (entry.kind) {
+    case 'stderr':
+      if (!entry.verbose) return;
+      process.stderr.write(entry.data);
+      break;
+  }
+}
+
+$.log = log;
+
+const statusesRegexp = /M|\?/m;
+
+const gitStatus = await $`git status --porcelain`;
+const gitDir = await $`git rev-parse --git-dir`;
+
+console.log(gitDir.stdout)
+const projectDir = path.resolve(gitDir.stdout.slice(0, -1), "..")
+
+const gitStatuses = gitStatus.stdout.split("\n").filter(str => !!str.trim());
+
+if (gitStatuses.length === 0) {
+	console.log(chalk.bold.red("No files!"));
+	process.exit();
+}
+
+const files = gitStatuses
+  .map(status => statusesRegexp.test(status.slice(0, 2)) ? status.slice(3) : false)
+  .filter(Boolean);
+
+const chooseResults = await prompts([
+  {
+    type: 'multiselect',
+    name: 'files',
+    message: 'Choose files',
+    choices: files.map(file => ({ title: file, value: file })),
+  }
+]);
+
+const choosedFiles = chooseResults.files;
+
+Promise.all(choosedFiles.map(file => $`git add ${projectDir}/${file}`)).then(() => {
+	console.log(chalk.bold.green("Success!"));
+})
