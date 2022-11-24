@@ -1,5 +1,7 @@
 # zx-scripts
 
+# !!! Инструменты и скрипты переехали в [dotfiles](https://github.com/SeryuBaran/dotfiles) !!!
+
 ## Внимание!
 
 Необходима Node.js и пакет `zx`, установленный глобально.
